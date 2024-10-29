@@ -28,3 +28,6 @@ replay_pid*
 
 # binaries
 /bin
+
+# DS_Store
+.DS_Store
