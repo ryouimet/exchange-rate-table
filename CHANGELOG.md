@@ -8,13 +8,15 @@ the following form: YYYY.0M.0D.
 
 ## [Unreleased]
 
-## 2024.09.16
+## 2024.10.17
 
 ### Added
 
-- Designed an `ExchangeRate` component
-- Designed a `WorkoutProgram` component
-- Designed a `Playlist` component
+- Designed kernel and enhanced interfaces for thw `ExchangeRate` component
+
+### Updated
+
+- Changed design to include `isWithinRange` and `isStable` kernel methods, as well as `convertAmount` and `applyDiscount` secondary methods. Removed `setRate` kernel method and `compareValue` secondary method.
 
 ## 2024.10.03
 
@@ -25,3 +27,11 @@ the following form: YYYY.0M.0D.
 ### Updated
 
 - Changed design to exclude the `getRates` kernel method, and added a secondary method: `compareValue`, and changed component brainstorming document to reflect these changes.
+
+## 2024.09.16
+
+### Added
+
+- Designed an `ExchangeRate` component
+- Designed a `WorkoutProgram` component
+- Designed a `Playlist` component
