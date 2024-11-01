@@ -28,4 +28,5 @@ public interface ExchangeRate
      *            the exchange rate that will be lowered with the discount
      */
     void applyDiscount(ExchangeRate r);
+  
 }
