@@ -9,10 +9,16 @@ import components.standard.Standard;
 public interface ExchangeRateKernel extends Standard<ExchangeRate> {
 
     /**
-     * Gets an exchange rate's name and value.
+     * Gets an exchange rate's name.
      *
-     * @return {@code Pair} of {@code String} [The name of the exchange rate]
-     *         and {@code BigDecimal} [The value of the exchange rate]
+     * @return {@code String} [The name of the exchange rate]
+     */
+    String getRateName();
+
+    /**
+     * Gets an exchange rate's value.
+     *
+     * @return {@code BigDecimal} [The value of the exchange rate]
      */
     BigDecimal getRateValue();
 

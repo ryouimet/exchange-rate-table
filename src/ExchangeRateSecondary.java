@@ -46,9 +46,9 @@ public abstract class ExchangeRateSecondary implements ExchangeRate {
                 .multiply(inflationRate.getRateValue());
 
         Map<String, BigDecimal> tempMap = new Map1L<>();
-        tempMap.add(this.rep.key(), newRateValue);
+        tempMap.add(this.getRateName(), newRateValue);
 
-        this.rep = tempMap.remove(this.rep.key());
+        this.rep = tempMap.remove(this.getRateName());
     }
 
     /**

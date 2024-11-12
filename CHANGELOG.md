@@ -20,7 +20,7 @@ the following form: YYYY.0M.0D.
 
 ### Updated
 
-- Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateValue` and `setRateMap` to kernel methods.
+- Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateName`, `getRateValue`, and `setRateMap` to kernel methods.
 
 ## 2024.10.17
 
