@@ -11,6 +11,7 @@ public interface ExchangeRate
      *
      * @param inflationRate
      *            the rate that {@code this} is multiplied by.
+     * @ensures this = #this * inflationRate
      */
     void multiplyRate(ExchangeRate inflationRate);
 

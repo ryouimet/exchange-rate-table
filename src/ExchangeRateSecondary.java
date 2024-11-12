@@ -36,6 +36,7 @@ public abstract class ExchangeRateSecondary implements ExchangeRate {
      *
      * @param inflationRate
      *            the rate that {@code this} is multiplied by.
+     * @ensures this = #this * inflationRate
      */
     @Override
     public void multiplyRate(ExchangeRate inflationRate) {
