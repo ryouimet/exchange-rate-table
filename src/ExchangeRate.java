@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 /**
  * {@code ExchangeRateKernel} enhanced with secondary methods.
  */
@@ -19,14 +21,34 @@ public interface ExchangeRate
      *            the exchange rate of the new currency
      * @return the new currency amount
      */
-    double convertAmount(ExchangeRate r);
+    BigDecimal convertAmount(ExchangeRate r);
 
     /**
-     * Applies a discount to {@code r}.
+     * Determines whether or not an ExchangeRate is within a certain range.
      *
-     * @param r
-     *            the exchange rate that will be lowered with the discount
+     * @param lowerBound
+     *            the lower bound of the range
+     *
+     * @param upperBound
+     *            the upper bound of the range
+     *
+     * @return true if [lowerBound <= this.getRateValue() <= upperBound]
      */
-    void applyDiscount(ExchangeRate r);
-  
+    boolean isWithinRange(BigDecimal lowerBound, BigDecimal upperBound);
+
+    /**
+     * Determines whether or not an ExchangeRate has changed by less than a
+     * specified threshold percentage.
+     *
+     * @param previousRate
+     *            the previous rate of the currency
+     *
+     * @param threshold
+     *            the threshold the user uses to view the percentage of change
+     *
+     * @return true if [(currentRate - previousRate) < (previousRate * threshold
+     *         / 100)]
+     */
+    boolean isStable(ExchangeRate previousRate, BigDecimal threshold);
+
 }

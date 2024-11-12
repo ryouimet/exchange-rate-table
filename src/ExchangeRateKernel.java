@@ -1,3 +1,6 @@
+import java.math.BigDecimal;
+
+import components.map.Map;
 import components.standard.Standard;
 
 /**
@@ -6,35 +9,26 @@ import components.standard.Standard;
 public interface ExchangeRateKernel extends Standard<ExchangeRate> {
 
     /**
+     * Gets an exchange rate's name and value.
+     *
+     * @return {@code Pair} of {@code String} [The name of the exchange rate]
+     *         and {@code BigDecimal} [The value of the exchange rate]
+     */
+    BigDecimal getRateValue();
+
+    /**
+     * Creates a map of exchange rates.
+     *
+     * @return {@code Map} of {@code String} [The name of the exchange rate] and
+     *         {@code BigDecimal} [The value of the exchange rate]
+     */
+    Map<String, BigDecimal> setRateMap();
+
+    /**
      * Determines whether or not an ExchangeRate is worthless.
      *
      * @return true if [this <= 0].
      */
     boolean isWorthless();
-
-    /**
-     * Determines whether or not an ExchangeRate is within a certain range.
-     *
-     * @param lowerBound
-     *            the lower bound of the range
-     *
-     * @param upperBound
-     *            the upper bound of the range
-     *
-     * @return true if [lowerBound <= this.value() <= upperBound]
-     */
-    boolean isWithinRange(double lowerBound, double upperBound);
-
-    /**
-     * Determines whether or not an ExchangeRate has changed by less than a
-     * specified threshold percentage.
-     *
-     * @param threshold
-     *            the threshold the user uses to view the percentage of change
-     *
-     * @return true if [(this - previousRate) < (previousRate * threshold /
-     *         100)]
-     */
-    boolean isStable(double threshold);
 
 }
