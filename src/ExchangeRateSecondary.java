@@ -40,6 +40,7 @@ public abstract class ExchangeRateSecondary implements ExchangeRate {
     @Override
     public void multiplyRate(ExchangeRate inflationRate) {
         assert inflationRate != null : "Violation of: r is not null";
+
         BigDecimal newRateValue = this.getRateValue()
                 .multiply(inflationRate.getRateValue());
 
