@@ -56,7 +56,7 @@ public abstract class ExchangeRateSecondary implements ExchangeRate {
      *
      * @param r
      *            the exchange rate of the new currency
-     * @return the new currency amount
+     * @return {@code BigDecimal} [The new currency amount]
      */
     @Override
     public BigDecimal convertAmount(ExchangeRate r) {
