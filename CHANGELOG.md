@@ -8,6 +8,20 @@ the following form: YYYY.0M.0D.
 
 ## [Unreleased]
 
+## 2024.11.14
+
+### Added
+
+- Designed kernel implementation for `RateTable` component
+
+### Removed
+
+- Removed `ExchangeRateKernel` and `ExchangeRateSecondary`
+
+### Updated
+
+- Changed design to a `RateTable`, which is a table of `ExchangeRates`. Implemented `ExchangeRate` record
+
 ## 2024.11.11
 
 ### Added
@@ -16,11 +30,11 @@ the following form: YYYY.0M.0D.
 
 ### Removed
 
-- Removed `applyDiscount` method, as it was essentially the same as `multiplyRate`.
+- Removed `applyDiscount` method, as it was essentially the same as `multiplyRate`
 
 ### Updated
 
-- Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateName`, `getRateValue`, and `setRateMap` to kernel methods.
+- Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateName`, `getRateValue`, and `setRateMap` to kernel methods
 
 ## 2024.10.17
 
@@ -30,7 +44,7 @@ the following form: YYYY.0M.0D.
 
 ### Updated
 
-- Changed design to include `isWithinRange` and `isStable` kernel methods, as well as `convertAmount` and `applyDiscount` secondary methods. Removed `setRate` kernel method and `compareValue` secondary method.
+- Changed design to include `isWithinRange` and `isStable` kernel methods, as well as `convertAmount` and `applyDiscount` secondary methods. Removed `setRate` kernel method and `compareValue` secondary method
 
 ## 2024.10.03
 
@@ -40,7 +54,7 @@ the following form: YYYY.0M.0D.
 
 ### Updated
 
-- Changed design to exclude the `getRates` kernel method, and added a secondary method: `compareValue`, and changed component brainstorming document to reflect these changes.
+- Changed design to exclude the `getRates` kernel method, and added a secondary method: `compareValue`, and changed component brainstorming document to reflect these changes
 
 ## 2024.09.16
 
