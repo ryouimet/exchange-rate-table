@@ -8,6 +8,20 @@ the following form: YYYY.0M.0D.
 
 ## [Unreleased]
 
+## 2024.11.11
+
+### Added
+
+- Designed abstract class for `ExchangeRate` component
+
+### Removed
+
+- Removed `applyDiscount` method, as it was essentially the same as `multiplyRate`.
+
+### Updated
+
+- Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateName`, `getRateValue`, and `setRateMap` to kernel methods.
+
 ## 2024.10.17
 
 ### Added
