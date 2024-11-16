@@ -88,16 +88,20 @@ public class RateTable1 extends RateTableSecondary {
 
     @Override
     public final ExchangeRate getExchangeRate(String name) {
+        assert name != null : "Violation of: name is not null";
         return new ExchangeRate(name, this.rep.value(name));
     }
 
     @Override
     public final void addExchangeRate(String name, BigDecimal rate) {
+        assert name != null : "Violation of: name is not null";
+        assert rate != null : "Violation of: rate is not null";
         this.rep.add(name, rate);
     }
 
     @Override
     public final ExchangeRate removeExchangeRate(String name) {
+        assert name != null : "Violation of: name is not null";
         ExchangeRate removed = new ExchangeRate(name, this.rep.value(name));
         this.rep.remove(name);
         return removed;
@@ -105,6 +109,7 @@ public class RateTable1 extends RateTableSecondary {
 
     @Override
     public final ExchangeRate removeAny() {
+        assert this.rep != null : "Violation of: this is not null";
         Pair<String, BigDecimal> p = this.rep.removeAny();
         return new ExchangeRate(p.key(), p.value());
     }
@@ -116,6 +121,7 @@ public class RateTable1 extends RateTableSecondary {
 
     @Override
     public final int size() {
+        assert this.rep != null : "Violation of: this is not null";
         return this.rep.size();
     }
 }

@@ -37,7 +37,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      * @ensures this = #this * inflationRate
      */
     void multiplyRate(ExchangeRate inflationRate) {
-        assert inflationRate != null : "Violation of: r is not null";
+        assert inflationRate != null : "Violation of: inflationRate is not null";
         this.rate.multiply(inflationRate.rate);
     }
 
@@ -50,6 +50,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      * @ensures result.equals(this.clone().rate.multiply(r.rate))
      */
     BigDecimal convertAmount(ExchangeRate r) {
+        assert r != null : "Violation of: r is not null";
         ExchangeRate temp = this.clone();
         return temp.rate.multiply(r.rate);
     }
@@ -68,6 +69,8 @@ public record ExchangeRate(String name, BigDecimal rate) {
      *          this.rate.compareTo(upperBound) <= 0)
      */
     boolean isWithinRange(BigDecimal lowerBound, BigDecimal upperBound) {
+        assert lowerBound != null : "Violation of: lowerBound is not null";
+        assert upperBound != null : "Violation of: lowerBound is not null";
         return (lowerBound.compareTo(this.rate) <= 0
                 && this.rate.compareTo(upperBound) <= 0);
     }
@@ -89,6 +92,8 @@ public record ExchangeRate(String name, BigDecimal rate) {
      *          BigDecimal(100))) < 0)
      */
     boolean isStable(ExchangeRate previousRate, BigDecimal threshold) {
+        assert previousRate != null : "Violation of: previousRate is not null";
+        assert threshold != null : "Violation of: threshold is not null";
 
         BigDecimal currentRateValue = this.rate;
         BigDecimal previousRateValue = previousRate.rate;
@@ -105,6 +110,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      * @ensures result == (this.rate().compareTo(new BigDecimal(0)) <= 0)
      */
     boolean isWorthless() {
+        assert this != null : "Violation of: this is not null";
         return this.rate().compareTo(new BigDecimal(0)) <= 0;
     }
 
