@@ -1,7 +1,7 @@
 /**
  * {@code RateTableKernel} enhanced with secondary methods.
  */
-public interface RateTable extends Comparable<RateTable>, RateTableKernel {
+public interface RateTable extends RateTableKernel {
 
     /**
      * Retrives the most valuable {@code ExchangeRate} from the
