@@ -19,7 +19,7 @@ import components.map.Map1L;
  * @author Ryan Ouimet
  *
  */
-public class RateTable1 extends RateTableSecondary {
+public class MapRateTable extends RateTableSecondary {
 
     /*
      * Private members --------------------------------------------------------
@@ -44,7 +44,7 @@ public class RateTable1 extends RateTableSecondary {
     /**
      * No-argument constructor.
      */
-    public RateTable1() {
+    public MapRateTable() {
         this.createNewRep();
     }
 
@@ -71,13 +71,13 @@ public class RateTable1 extends RateTableSecondary {
     public final void transferFrom(RateTable source) {
         assert source != null : "Violation of: source is not null";
         assert source != this : "Violation of: source is not this";
-        assert source instanceof RateTable1 : ""
+        assert source instanceof MapRateTable : ""
                 + "Violation of: source is of dynamic type NaturalNumberExample";
         /*
          * This cast cannot fail since the assert above would have stopped
          * execution in that case.
          */
-        RateTable1 localSource = (RateTable1) source;
+        MapRateTable localSource = (MapRateTable) source;
         this.rep = localSource.rep;
         localSource.createNewRep();
     }
