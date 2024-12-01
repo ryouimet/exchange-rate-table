@@ -47,7 +47,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      * @param r
      *            the exchange rate of the new currency
      * @return {@code BigDecimal} [The new currency amount]
-     * @ensures result.equals(this.clone().rate.multiply(r.rate))
+     * @ensures result = [this.rate * r.rate]
      */
     BigDecimal convertAmount(ExchangeRate r) {
         assert r != null : "Violation of: r is not null";
@@ -64,7 +64,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      * @param upperBound
      *            the upper bound of the range
      *
-     * @return true if [lowerBound <= this.getRateValue() <= upperBound]
+     * @return true if [lowerBound <= this.rate <= upperBound]
      * @ensures result == (lowerBound.compareTo(this.rate) <= 0 &&
      *          this.rate.compareTo(upperBound) <= 0)
      */
@@ -76,8 +76,8 @@ public record ExchangeRate(String name, BigDecimal rate) {
     }
 
     /**
-     * Determines whether or not an ExchangeRate has changed by less than a
-     * specified threshold percentage.
+     * Determines whether or not an {@code ExchangeRate} has changed by less
+     * than a specified threshold percentage.
      *
      * @param previousRate
      *            the previous rate of the currency
@@ -87,9 +87,8 @@ public record ExchangeRate(String name, BigDecimal rate) {
      *
      * @return true if [(currentRate - previousRate) < (previousRate * threshold
      *         / 100)]
-     * @ensures result == ((this.rate.subtract(previousRate.rate))
-     *          .compareTo((previousRate.rate.multiply(threshold)) .divide(new
-     *          BigDecimal(100))) < 0)
+     * @ensures result == (this.rate - previousRate.rate) < (previousRate.rate *
+     *          threshold / 100)
      */
     boolean isStable(ExchangeRate previousRate, BigDecimal threshold) {
         assert previousRate != null : "Violation of: previousRate is not null";
@@ -104,10 +103,10 @@ public record ExchangeRate(String name, BigDecimal rate) {
     }
 
     /**
-     * Determines whether or not an ExchangeRate is worthless.
+     * Determines whether or not an {@code ExchangeRate} is worthless.
      *
      * @return true if [this <= 0].
-     * @ensures result == (this.rate().compareTo(new BigDecimal(0)) <= 0)
+     * @ensures result == (this.rate <= 0)
      */
     boolean isWorthless() {
         assert this != null : "Violation of: this is not null";

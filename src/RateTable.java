@@ -4,11 +4,19 @@
 public interface RateTable extends RateTableKernel {
 
     /**
+     * Populates current exchange rates into the {@code RateTable}.
+     *
+     * @updates {@code this}
+     * @ensures this = #this union [current exchange rates]
+     */
+    void populateRatesFromAPI();
+
+    /**
      * Retrives the most valuable {@code ExchangeRate} from the
      * {@code RateTable}.
      *
      * @return the maximum {@code ExchangeRate} in the {@code RateTable}
-     * @ensures result.equals(the maximum {@code ExchangeRate} in the
+     * @ensures result = (the maximum {@code ExchangeRate} in the
      *          {@code RateTable})
      */
     ExchangeRate getMostValuable();
@@ -18,7 +26,7 @@ public interface RateTable extends RateTableKernel {
      * {@code RateTable}.
      *
      * @return the minimum {@code ExchangeRate} in the {@code RateTable}
-     * @ensures result.equals(the minimum {@code ExchangeRate} in the
+     * @ensures result = (the minimum {@code ExchangeRate} in the
      *          {@code RateTable})
      */
     ExchangeRate getLeastValuable();

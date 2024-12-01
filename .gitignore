@@ -29,5 +29,8 @@ replay_pid*
 # binaries
 /bin
 
-# System files
+# DS Store file
 .DS_Store
+
+# Environment variables
+env

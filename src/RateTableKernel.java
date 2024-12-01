@@ -13,7 +13,7 @@ public interface RateTableKernel extends Standard<RateTable> {
      * @param name
      *            the name of the {@code ExchangeRate}
      * @return {@code String} [The name of the {@code ExchangeRate}]
-     * @requires [{@code name} is in {@code this}]
+     * @requires {@code name} is in {@code this}
      * @ensures result is a pair of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
      *          {@code ExchangeRate}]
@@ -27,10 +27,10 @@ public interface RateTableKernel extends Standard<RateTable> {
      *            the name of the {@code ExchangeRate}
      * @param rate
      *            the value of the {@code ExchangeRate}
-     * @requires [{@code name} is not null]
-     * @ensures this.contains[{@code Pair} of {@code String} [the name of the
+     * @requires {@code name} is not null
+     * @ensures this contains a {@code Pair} of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
-     *          {@code ExchangeRate}]]
+     *          {@code ExchangeRate}]
      */
     void addExchangeRate(String name, BigDecimal rate);
 
@@ -40,7 +40,7 @@ public interface RateTableKernel extends Standard<RateTable> {
      * @param name
      *            the name of the {@code ExchangeRate}
      * @return {@code ExchangeRate} associated with the name given
-     * @requires [{@code name} is in {@code this}]
+     * @requires {@code name} is in {@code this}
      * @ensures result is a pair of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
      *          {@code ExchangeRate}]
@@ -65,7 +65,7 @@ public interface RateTableKernel extends Standard<RateTable> {
      *            the name of the {@code ExchangeRate}
      * @return true if [{@code this} contains an {@code ExchangeRate} associated
      *         with the given name]
-     * @requires [name is in {@code this}]
+     * @requires name is in {@code this}
      * @ensures result == ({@code this} contains an {@code ExchangeRate}
      *          associated with {@code name})
      */
