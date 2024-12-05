@@ -21,12 +21,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
 
     @Override
     public final ExchangeRate clone() {
-        try {
-            return this.getClass().getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
-            throw new AssertionError(
-                    "Cannot construct object of type " + this.getClass());
-        }
+        return new ExchangeRate(this.name, this.rate);
     }
 
     /**
@@ -36,9 +31,9 @@ public record ExchangeRate(String name, BigDecimal rate) {
      *            the rate that {@code this} is multiplied by.
      * @ensures this = #this * inflationRate
      */
-    void multiplyRate(ExchangeRate inflationRate) {
+    BigDecimal multiplyRate(BigDecimal inflationRate) {
         assert inflationRate != null : "Violation of: inflationRate is not null";
-        this.rate.multiply(inflationRate.rate);
+        return this.rate.multiply(inflationRate);
     }
 
     /**
@@ -51,8 +46,7 @@ public record ExchangeRate(String name, BigDecimal rate) {
      */
     BigDecimal convertAmount(ExchangeRate r) {
         assert r != null : "Violation of: r is not null";
-        ExchangeRate temp = this.clone();
-        return temp.rate.multiply(r.rate);
+        return this.rate.multiply(r.rate);
     }
 
     /**

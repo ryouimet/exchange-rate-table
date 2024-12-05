@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  *
  * @author Ryan Ouimet
  */
-public class RateTableDemo {
+public class RateTableDemo1 {
 
         /**
          * Main method.
