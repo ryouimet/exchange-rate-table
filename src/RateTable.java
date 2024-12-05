@@ -16,6 +16,7 @@ public interface RateTable extends RateTableKernel {
      * {@code RateTable}.
      *
      * @return the maximum {@code ExchangeRate} in the {@code RateTable}
+     * @requires |this| > 0
      * @ensures result = (the maximum {@code ExchangeRate} in the
      *          {@code RateTable})
      */
@@ -26,6 +27,7 @@ public interface RateTable extends RateTableKernel {
      * {@code RateTable}.
      *
      * @return the minimum {@code ExchangeRate} in the {@code RateTable}
+     * @requires |this| > 0
      * @ensures result = (the minimum {@code ExchangeRate} in the
      *          {@code RateTable})
      */
