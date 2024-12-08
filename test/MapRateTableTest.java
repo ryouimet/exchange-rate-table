@@ -10,13 +10,71 @@ import org.junit.Test;
 public class MapRateTableTest extends RateTableTest {
 
     /**
-     * Test for populateRatesFromAPI.
+     * Test for addAllExchangeRates on a {@code RateTable} of size 0.
      */
     @Test
-    public void testAPIPull1() {
-        RateTable t = new MapRateTable();
-        t.populateRatesFromAPI();
-        assertEquals(162, t.size());
+    public void testAddAllExchangeRates1() {
+        RateTable t1 = new MapRateTable();
+        t1.addExchangeRate("US Pennies", new BigDecimal(100));
+        t1.addExchangeRate("US Dimes", new BigDecimal(10));
+
+        RateTable t2 = t1.newInstance();
+        t2.addAllExchangeRates(t1);
+
+        assertEquals(2, t2.size());
+    }
+
+    /**
+     * Test for addAllExchangeRates on a {@code RateTable} of size 1.
+     */
+    @Test
+    public void testAddAllExchangeRates2() {
+        RateTable t1 = new MapRateTable();
+        t1.addExchangeRate("US Pennies", new BigDecimal(100));
+        t1.addExchangeRate("US Dimes", new BigDecimal(10));
+
+        RateTable t2 = t1.newInstance();
+        t2.addExchangeRate("LEGO VIP Points", new BigDecimal(6.5));
+        t2.addAllExchangeRates(t1);
+
+        assertEquals(3, t2.size());
+    }
+
+    /**
+     * Test for addAllExchangeRates on a {@code RateTable} of size 4 with a
+     * duplicate.
+     */
+    @Test
+    public void testAddAllExchangeRates3() {
+        RateTable t1 = new MapRateTable();
+        t1.addExchangeRate("US Pennies", new BigDecimal(100));
+        t1.addExchangeRate("US Dimes", new BigDecimal(10));
+
+        RateTable t2 = t1.newInstance();
+        t2.addExchangeRate("US Pennies", new BigDecimal(100));
+        t2.addExchangeRate("LEGO VIP Points", new BigDecimal(6.5));
+        t2.addExchangeRate("Delta SkyMiles", new BigDecimal(0.012));
+        t2.addAllExchangeRates(t1);
+
+        assertEquals(4, t2.size());
+    }
+
+    /**
+     * Test for addAllExchangeRates on a {@code RateTable} with a duplicate
+     * {@code ExchangeRate}.
+     */
+    @Test
+    public void testAddAllExchangeRates4() {
+        RateTable t1 = new MapRateTable();
+        t1.addExchangeRate("US Pennies", new BigDecimal(100));
+        t1.addExchangeRate("US Dimes", new BigDecimal(10));
+
+        RateTable t2 = t1.newInstance();
+        t2.addExchangeRate("US Pennies", new BigDecimal(100));
+        t2.addExchangeRate("LEGO VIP Points", new BigDecimal(6.5));
+        t2.addAllExchangeRates(t1);
+
+        assertEquals(3, t2.size());
     }
 
     /**
@@ -73,6 +131,16 @@ public class MapRateTableTest extends RateTableTest {
         ExchangeRate rExpected = new ExchangeRate("US Pennies",
                 new BigDecimal(100));
         assertEquals(rExpected, t.getLeastValuable());
+    }
+
+    /**
+     * Test for populateRatesFromAPI.
+     */
+    @Test
+    public void testPopulateRatesFromAPI() {
+        RateTable t = new MapRateTable();
+        t.populateRatesFromAPI();
+        assertEquals(162, t.size());
     }
 
 }

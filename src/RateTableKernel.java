@@ -28,7 +28,7 @@ public interface RateTableKernel extends Standard<RateTable> {
      *            the name of the {@code ExchangeRate}
      * @param rate
      *            the value of the {@code ExchangeRate}
-     * @requires {@code name} is not null
+     * @requires {@code name} and {@code rate} is not null
      * @ensures this contains a {@code Pair} of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
      *          {@code ExchangeRate}]

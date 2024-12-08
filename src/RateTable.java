@@ -8,7 +8,7 @@ public interface RateTable extends RateTableKernel {
      *
      * @param t
      *            the {@code RateTable} to be copied into {@code this}
-     * @requires {@code m} is not null
+     * @requires {@code t} is not null
      * @ensures this contains a {@code Pair} of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
      *          {@code ExchangeRate}]

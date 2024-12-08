@@ -20,7 +20,7 @@ public abstract class RateTableSecondary implements RateTable {
      *
      * @param t
      *            the {@code RateTable} to be copied into {@code this}
-     * @requires {@code m} is not null
+     * @requires {@code t} is not null
      * @ensures this contains a {@code Pair} of {@code String} [the name of the
      *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
      *          {@code ExchangeRate}]
@@ -108,23 +108,19 @@ public abstract class RateTableSecondary implements RateTable {
                 + dotenv.get("API_KEY") + "/latest/USD";
 
         try {
-            // Make API Request
             URL url = new URL(urlStr);
             HttpURLConnection request = (HttpURLConnection) url
                     .openConnection();
             request.connect();
 
-            // Parse JSON response
             JsonParser jp = new JsonParser();
             JsonElement root = jp.parse(
                     new InputStreamReader((InputStream) request.getContent()));
             JsonObject jsonobj = root.getAsJsonObject();
 
-            // Access the "conversion_rates" object
             JsonObject conversionRates = jsonobj
                     .getAsJsonObject("conversion_rates");
 
-            // Iterate over keys in conversionRates and add to map
             for (String currency : conversionRates.keySet()) {
                 BigDecimal rate = conversionRates.get(currency)
                         .getAsBigDecimal();
