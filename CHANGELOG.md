@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## [V1.0]
+
+## 2024.12.07
+
+### Added
+
+**New Kernel Methods**:
+- Added additional `addExchangeRate` kernel method with an `ExchangeRate` argument
+- Added `exchangeRateSet` kernel method
+- Added `rates` kernel method
+- Added `nameSet` kernel method
+
+**New Secondary Method**:
+- Added `addAllExchangeRates` secondary method
+
+### Updated
+
+- Changed design to be built on the map data strucure from the Java Collections Framework.
+- Updated README
+
+
+## [Unreleased]
+
+## 2024.12.04
+
+### Added
+
+- Designed test suite for the `RateTable` component
+- Designed two different use cases for `RateTable` component
+
+### Updated
+
+- Changed design to include a `populateRatesFromAPI` secondary method, which pulls current exchange rates from an API.
+
+
 ## [Unreleased]
 
 ## 2024.11.14
@@ -22,6 +57,9 @@ the following form: YYYY.0M.0D.
 
 - Changed design to a `RateTable`, which is a table of `ExchangeRates`. Implemented `ExchangeRate` record
 
+
+## [Unreleased]
+
 ## 2024.11.11
 
 ### Added
@@ -36,6 +74,9 @@ the following form: YYYY.0M.0D.
 
 - Changed design to include `isWithinRange` and `isStable` as secondary methods, and added `getRateName`, `getRateValue`, and `setRateMap` to kernel methods
 
+
+## [Unreleased]
+
 ## 2024.10.17
 
 ### Added
@@ -46,6 +87,9 @@ the following form: YYYY.0M.0D.
 
 - Changed design to include `isWithinRange` and `isStable` kernel methods, as well as `convertAmount` and `applyDiscount` secondary methods. Removed `setRate` kernel method and `compareValue` secondary method
 
+
+## [Unreleased]
+
 ## 2024.10.03
 
 ### Added
@@ -55,6 +99,9 @@ the following form: YYYY.0M.0D.
 ### Updated
 
 - Changed design to exclude the `getRates` kernel method, and added a secondary method: `compareValue`, and changed component brainstorming document to reflect these changes
+
+
+## [Unreleased]
 
 ## 2024.09.16
 
