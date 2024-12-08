@@ -15,6 +15,7 @@ The `RateTable` is a reusable Java component that models exchange rates for vari
 
 ### Installation
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/ryouimet/exchange-rate-table.git
    ```
