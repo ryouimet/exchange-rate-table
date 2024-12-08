@@ -16,45 +16,19 @@ import io.github.cdimascio.dotenv.Dotenv;
 public abstract class RateTableSecondary implements RateTable {
 
     /**
-     * Populates current exchange rates into the {@code RateTable}.
+     * Adds all {@code ExchangeRates} from {@code t} to the {@code this}.
      *
-     * @updates {@code this}
-     * @ensures this = #this union [current exchange rates]
+     * @param t
+     *            the {@code RateTable} to be copied into {@code this}
+     * @requires {@code m} is not null
+     * @ensures this contains a {@code Pair} of {@code String} [the name of the
+     *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
+     *          {@code ExchangeRate}]
      */
     @Override
-    public void populateRatesFromAPI() {
-
-        Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
-                .load();
-
-        String urlStr = "https://v6.exchangerate-api.com/v6/"
-                + dotenv.get("API_KEY") + "/latest/USD";
-
-        try {
-            // Make API Request
-            URL url = new URL(urlStr);
-            HttpURLConnection request = (HttpURLConnection) url
-                    .openConnection();
-            request.connect();
-
-            // Parse JSON response
-            JsonParser jp = new JsonParser();
-            JsonElement root = jp.parse(
-                    new InputStreamReader((InputStream) request.getContent()));
-            JsonObject jsonobj = root.getAsJsonObject();
-
-            // Access the "conversion_rates" object
-            JsonObject conversionRates = jsonobj
-                    .getAsJsonObject("conversion_rates");
-
-            // Iterate over keys in conversionRates and add to map
-            for (String currency : conversionRates.keySet()) {
-                BigDecimal rate = conversionRates.get(currency)
-                        .getAsBigDecimal();
-                this.addExchangeRate(currency, rate);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void addAllExchangeRates(RateTable t) {
+        for (ExchangeRate r : t.exchangeRateSet()) {
+            this.addExchangeRate(r);
         }
     }
 
@@ -116,6 +90,49 @@ public abstract class RateTableSecondary implements RateTable {
             this.addExchangeRate(r.name(), r.rate());
         }
         return new ExchangeRate(resName, max);
+    }
+
+    /**
+     * Populates current exchange rates into the {@code RateTable}.
+     *
+     * @updates {@code this}
+     * @ensures this = #this union [current exchange rates]
+     */
+    @Override
+    public void populateRatesFromAPI() {
+
+        Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
+                .load();
+
+        String urlStr = "https://v6.exchangerate-api.com/v6/"
+                + dotenv.get("API_KEY") + "/latest/USD";
+
+        try {
+            // Make API Request
+            URL url = new URL(urlStr);
+            HttpURLConnection request = (HttpURLConnection) url
+                    .openConnection();
+            request.connect();
+
+            // Parse JSON response
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(
+                    new InputStreamReader((InputStream) request.getContent()));
+            JsonObject jsonobj = root.getAsJsonObject();
+
+            // Access the "conversion_rates" object
+            JsonObject conversionRates = jsonobj
+                    .getAsJsonObject("conversion_rates");
+
+            // Iterate over keys in conversionRates and add to map
+            for (String currency : conversionRates.keySet()) {
+                BigDecimal rate = conversionRates.get(currency)
+                        .getAsBigDecimal();
+                this.addExchangeRate(currency, rate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

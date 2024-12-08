@@ -16,12 +16,8 @@ public record ExchangeRate(String name, BigDecimal rate) {
 
     @Override
     public String toString() {
-        return this.rate.toString();
-    }
-
-    @Override
-    public final ExchangeRate clone() {
-        return new ExchangeRate(this.name, this.rate);
+        return String.format("ExchangeRate[name=%s, rate=%s]", this.name,
+                this.rate.toPlainString());
     }
 
     /**

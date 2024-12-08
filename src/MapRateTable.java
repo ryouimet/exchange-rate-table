@@ -1,8 +1,9 @@
 import java.math.BigDecimal;
-
-import components.map.Map;
-import components.map.Map.Pair;
-import components.map.Map1L;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * {@code RateTable} represented as a {@code Map} with implementations of
@@ -34,7 +35,7 @@ public class MapRateTable extends RateTableSecondary {
      * Creator of initial representation.
      */
     private void createNewRep() {
-        this.rep = new Map1L<>();
+        this.rep = new HashMap<>();
     }
 
     /*
@@ -53,6 +54,11 @@ public class MapRateTable extends RateTableSecondary {
      */
 
     @Override
+    public final void clear() {
+        this.createNewRep();
+    }
+
+    @Override
     public final RateTable newInstance() {
         try {
             return this.getClass().getConstructor().newInstance();
@@ -60,11 +66,6 @@ public class MapRateTable extends RateTableSecondary {
             throw new AssertionError(
                     "Cannot construct object of type " + this.getClass());
         }
-    }
-
-    @Override
-    public final void clear() {
-        this.createNewRep();
     }
 
     @Override
@@ -87,36 +88,56 @@ public class MapRateTable extends RateTableSecondary {
      */
 
     @Override
-    public final ExchangeRate getExchangeRate(String name) {
-        assert name != null : "Violation of: name is not null";
-        return new ExchangeRate(name, this.rep.value(name));
+    public final void addExchangeRate(ExchangeRate r) {
+        assert r != null : "Violation of: r is not null";
+        this.rep.put(r.name(), r.rate());
     }
 
     @Override
     public final void addExchangeRate(String name, BigDecimal rate) {
         assert name != null : "Violation of: name is not null";
         assert rate != null : "Violation of: rate is not null";
-        this.rep.add(name, rate);
+        this.rep.put(name, rate);
     }
 
     @Override
-    public final ExchangeRate removeExchangeRate(String name) {
+    public final boolean containsRate(String name) {
+        return this.rep.containsKey(name);
+    }
+
+    @Override
+    public final Set<ExchangeRate> exchangeRateSet() {
+        Set<ExchangeRate> exchangeRateSet = new HashSet<>();
+        for (Map.Entry<String, BigDecimal> e : this.rep.entrySet()) {
+            exchangeRateSet.add(new ExchangeRate(e.getKey(), e.getValue()));
+        }
+        return exchangeRateSet;
+    }
+
+    @Override
+    public final ExchangeRate getExchangeRate(String name) {
         assert name != null : "Violation of: name is not null";
-        ExchangeRate removed = new ExchangeRate(name, this.rep.value(name));
-        this.rep.remove(name);
-        return removed;
+        return new ExchangeRate(name, this.rep.get(name));
+    }
+
+    @Override
+    public final Collection<BigDecimal> rates() {
+        return this.rep.values();
     }
 
     @Override
     public final ExchangeRate removeAny() {
         assert this.rep != null : "Violation of: this is not null";
-        Pair<String, BigDecimal> p = this.rep.removeAny();
-        return new ExchangeRate(p.key(), p.value());
+        String key = this.rep.keySet().iterator().next();
+        return new ExchangeRate(key, this.rep.remove(key));
     }
 
     @Override
-    public final boolean containsRate(String name) {
-        return this.rep.hasKey(name);
+    public final ExchangeRate removeExchangeRate(String name) {
+        assert name != null : "Violation of: name is not null";
+        ExchangeRate removed = new ExchangeRate(name, this.rep.get(name));
+        this.rep.remove(name);
+        return removed;
     }
 
     @Override
@@ -124,4 +145,10 @@ public class MapRateTable extends RateTableSecondary {
         assert this.rep != null : "Violation of: this is not null";
         return this.rep.size();
     }
+
+    @Override
+    public final Set<String> nameSet() {
+        return this.rep.keySet();
+    }
+
 }

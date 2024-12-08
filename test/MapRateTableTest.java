@@ -25,9 +25,9 @@ public class MapRateTableTest extends RateTableTest {
     @Test
     public void testGetMostValuable1() {
         RateTable t = new MapRateTable();
-        t.addExchangeRate("penniesToUSD", new BigDecimal(100));
+        t.addExchangeRate("US Pennies", new BigDecimal(100));
 
-        ExchangeRate rExpected = new ExchangeRate("penniesToUSD",
+        ExchangeRate rExpected = new ExchangeRate("US Pennies",
                 new BigDecimal(100));
         assertEquals(rExpected, t.getMostValuable());
     }
@@ -38,11 +38,11 @@ public class MapRateTableTest extends RateTableTest {
     @Test
     public void testGetMostValuable2() {
         RateTable t = new MapRateTable();
-        t.addExchangeRate("penniesToUSD", new BigDecimal(100));
-        t.addExchangeRate("dimesToUSD", new BigDecimal(10));
-        t.addExchangeRate("legoVIPToUSD", new BigDecimal(6.5));
+        t.addExchangeRate("US Pennies", new BigDecimal(100));
+        t.addExchangeRate("US Dimes", new BigDecimal(10));
+        t.addExchangeRate("LEGO VIP Points", new BigDecimal(6.5));
 
-        ExchangeRate rExpected = new ExchangeRate("legoVIPToUSD",
+        ExchangeRate rExpected = new ExchangeRate("LEGO VIP Points",
                 new BigDecimal(6.5));
         assertEquals(rExpected, t.getMostValuable());
     }
@@ -53,9 +53,9 @@ public class MapRateTableTest extends RateTableTest {
     @Test
     public void testGetLeastValuable1() {
         RateTable t = new MapRateTable();
-        t.addExchangeRate("penniesToUSD", new BigDecimal(100));
+        t.addExchangeRate("US Pennies", new BigDecimal(100));
 
-        ExchangeRate rExpected = new ExchangeRate("penniesToUSD",
+        ExchangeRate rExpected = new ExchangeRate("US Pennies",
                 new BigDecimal(100));
         assertEquals(rExpected, t.getLeastValuable());
     }
@@ -66,11 +66,11 @@ public class MapRateTableTest extends RateTableTest {
     @Test
     public void testGetLeastValuable2() {
         RateTable t = new MapRateTable();
-        t.addExchangeRate("penniesToUSD", new BigDecimal(100));
-        t.addExchangeRate("dimesToUSD", new BigDecimal(10));
-        t.addExchangeRate("legoVIPToUSD", new BigDecimal(6.5));
+        t.addExchangeRate("US Pennies", new BigDecimal(100));
+        t.addExchangeRate("US Dimes", new BigDecimal(10));
+        t.addExchangeRate("LEGO VIP Points", new BigDecimal(6.5));
 
-        ExchangeRate rExpected = new ExchangeRate("penniesToUSD",
+        ExchangeRate rExpected = new ExchangeRate("US Pennies",
                 new BigDecimal(100));
         assertEquals(rExpected, t.getLeastValuable());
     }

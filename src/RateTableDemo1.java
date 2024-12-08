@@ -46,12 +46,12 @@ public class RateTableDemo1 {
                 System.out.println(
                                 "You can also add your own exchange rates to the Rate Table, like rewards points!");
                 System.out.println(
-                                "Say I want to add AMEX to USD, and 100 AMEX points are equal to $1.");
+                                "Say I want to add AMEX Points to USD, and 100 AMEX Points are equal to $1.");
 
-                t.addExchangeRate("AMEX", new BigDecimal(100));
-                r = t.getExchangeRate("AMEX");
-                System.out.println(
-                                "AMEX to USD from the Rate Table: " + r.rate());
+                t.addExchangeRate("AMEX Points", new BigDecimal(100));
+                r = t.getExchangeRate("AMEX Points");
+                System.out.println("AMEX Points to USD from the Rate Table: "
+                                + r.rate());
                 System.out.println(
                                 "I can see the most valuable currency in the Rate Table, which is "
                                                 + t.getMostValuable().name()
