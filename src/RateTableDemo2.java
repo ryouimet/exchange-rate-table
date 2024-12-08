@@ -53,7 +53,7 @@ public class RateTableDemo2 {
                         }
 
                         RateTable t = new MapRateTable();
-                        t.populateRatesFromAPI(); // May not work since env file is uncommitted
+                        t.getCurrentExchangeRates();
                         System.out.println(
                                         "It could even has much as Venezuelan Bolívar, "
                                                         + newLego.convertAmount(

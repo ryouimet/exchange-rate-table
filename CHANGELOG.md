@@ -23,8 +23,8 @@ the following form: YYYY.0M.0D.
 
 ### Updated
 
-- Changed design to be built on the map data strucure from the Java Collections Framework.
-- Updated README
+- Changed design to be built on the map data strucure from the Java Collections Framework
+- Changed the name of `populateRatesFromAPI` to `getCurrentExchangeRates`
 
 
 ## [Unreleased]

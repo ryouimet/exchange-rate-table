@@ -23,7 +23,7 @@ public class RateTableDemo1 {
                 System.out.println(
                                 "The Rate Table has a variety of uses. Have you ever googled something like \"EUR to USD\"? We can achieve a similar result here:");
                 RateTable t = new MapRateTable();
-                t.populateRatesFromAPI(); // May not work since env file is uncommitted
+                t.getCurrentExchangeRates();
 
                 ExchangeRate r = t.getExchangeRate("EUR");
                 System.out.println(

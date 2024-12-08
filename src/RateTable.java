@@ -43,6 +43,6 @@ public interface RateTable extends RateTableKernel {
      * @updates {@code this}
      * @ensures this = #this union [current exchange rates]
      */
-    void populateRatesFromAPI();
+    void getCurrentExchangeRates();
 
 }

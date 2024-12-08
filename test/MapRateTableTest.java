@@ -134,12 +134,12 @@ public class MapRateTableTest extends RateTableTest {
     }
 
     /**
-     * Test for populateRatesFromAPI.
+     * Test for getCurrentExchangeRates.
      */
     @Test
-    public void testPopulateRatesFromAPI() {
+    public void testGetCurrentExchangeRates() {
         RateTable t = new MapRateTable();
-        t.populateRatesFromAPI();
+        t.getCurrentExchangeRates();
         assertEquals(162, t.size());
     }
 

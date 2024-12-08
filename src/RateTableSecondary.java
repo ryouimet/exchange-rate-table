@@ -99,7 +99,7 @@ public abstract class RateTableSecondary implements RateTable {
      * @ensures this = #this union [current exchange rates]
      */
     @Override
-    public void populateRatesFromAPI() {
+    public void getCurrentExchangeRates() {
 
         Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
                 .load();
