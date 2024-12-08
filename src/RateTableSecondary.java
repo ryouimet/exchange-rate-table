@@ -16,6 +16,83 @@ import io.github.cdimascio.dotenv.Dotenv;
 public abstract class RateTableSecondary implements RateTable {
 
     /**
+     * Adds all {@code ExchangeRates} from {@code t} to the {@code this}.
+     *
+     * @param t
+     *            the {@code RateTable} to be copied into {@code this}
+     * @requires {@code m} is not null
+     * @ensures this contains a {@code Pair} of {@code String} [the name of the
+     *          {@code ExchangeRate}] and {@code BigDecimal} [the value of the
+     *          {@code ExchangeRate}]
+     */
+    @Override
+    public void addAllExchangeRates(RateTable t) {
+        for (ExchangeRate r : t.exchangeRateSet()) {
+            this.addExchangeRate(r);
+        }
+    }
+
+    /**
+     * Retrives the most valuable {@code ExchangeRate} from the
+     * {@code RateTable}.
+     *
+     * @return the minimum {@code ExchangeRate} value in the {@code RateTable}
+     * @requires |this| > 0
+     * @ensures result = (the minimum {@code ExchangeRate} value in the
+     *          {@code RateTable})
+     */
+    @Override
+    public ExchangeRate getMostValuable() {
+        assert this != null : "Violation of: this is not null";
+
+        String resName = "";
+        BigDecimal min = new BigDecimal(Integer.MAX_VALUE);
+
+        RateTable temp = this.newInstance();
+        temp.transferFrom(this);
+
+        while (temp.size() > 0) {
+            ExchangeRate r = temp.removeAny();
+            if (r.rate().compareTo(min) < 0) {
+                min = r.rate();
+                resName = r.name();
+            }
+            this.addExchangeRate(r.name(), r.rate());
+        }
+        return new ExchangeRate(resName, min);
+    }
+
+    /**
+     * Retrives the least valuable {@code ExchangeRate} from the
+     * {@code RateTable}.
+     *
+     * @return the maxiumum {@code ExchangeRate} value in the {@code RateTable}
+     * @requires |this| > 0
+     * @ensures result = (the maximum {@code ExchangeRate} value in the
+     *          {@code RateTable})
+     */
+    @Override
+    public ExchangeRate getLeastValuable() {
+        assert this != null : "Violation of: this is not null";
+
+        String resName = "";
+        BigDecimal max = new BigDecimal(Integer.MIN_VALUE);
+
+        RateTable temp = this.newInstance();
+        temp.transferFrom(this);
+
+        while (temp.size() > 0) {
+            ExchangeRate r = temp.removeAny();
+            if (r.rate().compareTo(max) > 0) {
+                max = r.rate();
+                resName = r.name();
+            }
+            this.addExchangeRate(r.name(), r.rate());
+        }
+        return new ExchangeRate(resName, max);
+    }
+
+    /**
      * Populates current exchange rates into the {@code RateTable}.
      *
      * @updates {@code this}
@@ -24,7 +101,7 @@ public abstract class RateTableSecondary implements RateTable {
     @Override
     public void populateRatesFromAPI() {
 
-        Dotenv dotenv = Dotenv.configure().directory("/assets").filename("env")
+        Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
                 .load();
 
         String urlStr = "https://v6.exchangerate-api.com/v6/"
@@ -56,62 +133,6 @@ public abstract class RateTableSecondary implements RateTable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Retrives the most valuable {@code ExchangeRate} from the
-     * {@code RateTable}.
-     *
-     * @return the maximum {@code ExchangeRate} in the {@code RateTable}
-     * @ensures result = (the maximum {@code ExchangeRate} in the
-     *          {@code RateTable})
-     */
-    @Override
-    public ExchangeRate getMostValuable() {
-
-        String resName = "";
-        BigDecimal max = new BigDecimal(0);
-
-        RateTable temp = this.newInstance();
-        temp.transferFrom(this);
-
-        while (temp.size() > 0) {
-            ExchangeRate r = temp.removeAny();
-            if (r.rate().compareTo(max) > 0) {
-                max = r.rate();
-                resName = r.name();
-            }
-            this.addExchangeRate(r.name(), r.rate());
-        }
-        return new ExchangeRate(resName, max);
-    }
-
-    /**
-     * Retrives the least valuable {@code ExchangeRate} from the
-     * {@code RateTable}.
-     *
-     * @return the minimum {@code ExchangeRate} in the {@code RateTable}
-     * @ensures result = (the minimum {@code ExchangeRate} in the
-     *          {@code RateTable})
-     */
-    @Override
-    public ExchangeRate getLeastValuable() {
-
-        String resName = "";
-        BigDecimal min = new BigDecimal(0);
-
-        RateTable temp = this.newInstance();
-        temp.transferFrom(this);
-
-        while (temp.size() > 0) {
-            ExchangeRate r = temp.removeAny();
-            if (r.rate().compareTo(min) < 0) {
-                min = r.rate();
-                resName = r.name();
-            }
-            this.addExchangeRate(r.name(), r.rate());
-        }
-        return new ExchangeRate(resName, min);
     }
 
 }
