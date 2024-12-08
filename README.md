@@ -10,6 +10,7 @@ a bit easier.
 
 ### Step 1: Create a Repo From This Template
 
+<<<<<<< Updated upstream
 <!-- TODO: use GitHub to create a repo from this template -->
 
 Assuming you're reading this README from GitHub, you can make use of this
@@ -82,3 +83,11 @@ for each assignment file.
 [components-jar]: https://cse22x1.engineering.osu.edu/common/components.jar
 [jdk-downloads]: https://www.oracle.com/java/technologies/downloads/
 [use-this-template]: https://github.com/new?template_name=portfolio-project&template_owner=jrg94
+=======
+### Installation
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/ryouimet/exchange-rate-table.git
+   ```
+>>>>>>> Stashed changes
