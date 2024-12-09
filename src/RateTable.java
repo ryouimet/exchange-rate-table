@@ -16,6 +16,14 @@ public interface RateTable extends RateTableKernel {
     void addAllExchangeRates(RateTable t);
 
     /**
+     * Populates current exchange rates into the {@code RateTable}.
+     *
+     * @updates {@code this}
+     * @ensures this = #this union [current exchange rates]
+     */
+    void getCurrentExchangeRates();
+
+    /**
      * Retrives the most valuable {@code ExchangeRate} from the
      * {@code RateTable}.
      *
@@ -36,13 +44,5 @@ public interface RateTable extends RateTableKernel {
      *          {@code RateTable})
      */
     ExchangeRate getLeastValuable();
-
-    /**
-     * Populates current exchange rates into the {@code RateTable}.
-     *
-     * @updates {@code this}
-     * @ensures this = #this union [current exchange rates]
-     */
-    void getCurrentExchangeRates();
 
 }

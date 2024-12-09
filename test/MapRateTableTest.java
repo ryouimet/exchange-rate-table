@@ -78,6 +78,16 @@ public class MapRateTableTest extends RateTableTest {
     }
 
     /**
+     * Test for getCurrentExchangeRates.
+     */
+    @Test
+    public void testGetCurrentExchangeRates() {
+        RateTable t = new MapRateTable();
+        t.getCurrentExchangeRates();
+        assertEquals(162, t.size());
+    }
+
+    /**
      * Test for getMostValuable on a {@code RateTable} of size 1.
      */
     @Test
@@ -131,16 +141,6 @@ public class MapRateTableTest extends RateTableTest {
         ExchangeRate rExpected = new ExchangeRate("US Pennies",
                 new BigDecimal(100));
         assertEquals(rExpected, t.getLeastValuable());
-    }
-
-    /**
-     * Test for getCurrentExchangeRates.
-     */
-    @Test
-    public void testGetCurrentExchangeRates() {
-        RateTable t = new MapRateTable();
-        t.getCurrentExchangeRates();
-        assertEquals(162, t.size());
     }
 
 }

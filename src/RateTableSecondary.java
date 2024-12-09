@@ -33,6 +33,45 @@ public abstract class RateTableSecondary implements RateTable {
     }
 
     /**
+     * Populates current exchange rates into the {@code RateTable}.
+     *
+     * @updates {@code this}
+     * @ensures this = #this union [current exchange rates]
+     */
+    @Override
+    public void getCurrentExchangeRates() {
+
+        Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
+                .load();
+
+        String urlStr = "https://v6.exchangerate-api.com/v6/"
+                + dotenv.get("API_KEY") + "/latest/USD";
+
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection request = (HttpURLConnection) url
+                    .openConnection();
+            request.connect();
+
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(
+                    new InputStreamReader((InputStream) request.getContent()));
+            JsonObject jsonobj = root.getAsJsonObject();
+
+            JsonObject conversionRates = jsonobj
+                    .getAsJsonObject("conversion_rates");
+
+            for (String currency : conversionRates.keySet()) {
+                BigDecimal rate = conversionRates.get(currency)
+                        .getAsBigDecimal();
+                this.addExchangeRate(currency, rate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Retrives the most valuable {@code ExchangeRate} from the
      * {@code RateTable}.
      *
@@ -90,45 +129,6 @@ public abstract class RateTableSecondary implements RateTable {
             this.addExchangeRate(r.name(), r.rate());
         }
         return new ExchangeRate(resName, max);
-    }
-
-    /**
-     * Populates current exchange rates into the {@code RateTable}.
-     *
-     * @updates {@code this}
-     * @ensures this = #this union [current exchange rates]
-     */
-    @Override
-    public void getCurrentExchangeRates() {
-
-        Dotenv dotenv = Dotenv.configure().directory("assets").filename("env")
-                .load();
-
-        String urlStr = "https://v6.exchangerate-api.com/v6/"
-                + dotenv.get("API_KEY") + "/latest/USD";
-
-        try {
-            URL url = new URL(urlStr);
-            HttpURLConnection request = (HttpURLConnection) url
-                    .openConnection();
-            request.connect();
-
-            JsonParser jp = new JsonParser();
-            JsonElement root = jp.parse(
-                    new InputStreamReader((InputStream) request.getContent()));
-            JsonObject jsonobj = root.getAsJsonObject();
-
-            JsonObject conversionRates = jsonobj
-                    .getAsJsonObject("conversion_rates");
-
-            for (String currency : conversionRates.keySet()) {
-                BigDecimal rate = conversionRates.get(currency)
-                        .getAsBigDecimal();
-                this.addExchangeRate(currency, rate);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }
