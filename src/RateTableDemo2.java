@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class RateTableDemo2 {
 
         /**
-         * Main method.
+         * Demo for the {@code ExchangeRate} subclass.
          *
          * @param args
          */

@@ -20,17 +20,9 @@ public record ExchangeRate(String name, BigDecimal rate) {
                 this.rate.toPlainString());
     }
 
-    /**
-     * Inflates or deflates a rate by a certain amount.
-     *
-     * @param inflationRate
-     *            the rate that {@code this} is multiplied by.
-     * @ensures this = #this * inflationRate
+    /*
+     * Domain-Specific Methods ------------------------------------------------
      */
-    BigDecimal multiplyRate(BigDecimal inflationRate) {
-        assert inflationRate != null : "Violation of: inflationRate is not null";
-        return this.rate.multiply(inflationRate);
-    }
 
     /**
      * Converts one currency into another using {@code r}.
@@ -43,26 +35,6 @@ public record ExchangeRate(String name, BigDecimal rate) {
     BigDecimal convertAmount(ExchangeRate r) {
         assert r != null : "Violation of: r is not null";
         return this.rate.multiply(r.rate);
-    }
-
-    /**
-     * Determines whether or not an ExchangeRate is within a certain range.
-     *
-     * @param lowerBound
-     *            the lower bound of the range
-     *
-     * @param upperBound
-     *            the upper bound of the range
-     *
-     * @return true if [lowerBound <= this.rate <= upperBound]
-     * @ensures result == (lowerBound.compareTo(this.rate) <= 0 &&
-     *          this.rate.compareTo(upperBound) <= 0)
-     */
-    boolean isWithinRange(BigDecimal lowerBound, BigDecimal upperBound) {
-        assert lowerBound != null : "Violation of: lowerBound is not null";
-        assert upperBound != null : "Violation of: lowerBound is not null";
-        return (lowerBound.compareTo(this.rate) <= 0
-                && this.rate.compareTo(upperBound) <= 0);
     }
 
     /**
@@ -93,6 +65,26 @@ public record ExchangeRate(String name, BigDecimal rate) {
     }
 
     /**
+     * Determines whether or not an ExchangeRate is within a certain range.
+     *
+     * @param lowerBound
+     *            the lower bound of the range
+     *
+     * @param upperBound
+     *            the upper bound of the range
+     *
+     * @return true if [lowerBound <= this.rate <= upperBound]
+     * @ensures result == (lowerBound.compareTo(this.rate) <= 0 &&
+     *          this.rate.compareTo(upperBound) <= 0)
+     */
+    boolean isWithinRange(BigDecimal lowerBound, BigDecimal upperBound) {
+        assert lowerBound != null : "Violation of: lowerBound is not null";
+        assert upperBound != null : "Violation of: lowerBound is not null";
+        return (lowerBound.compareTo(this.rate) <= 0
+                && this.rate.compareTo(upperBound) <= 0);
+    }
+
+    /**
      * Determines whether or not an {@code ExchangeRate} is worthless.
      *
      * @return true if [this <= 0].
@@ -101,6 +93,18 @@ public record ExchangeRate(String name, BigDecimal rate) {
     boolean isWorthless() {
         assert this != null : "Violation of: this is not null";
         return this.rate().compareTo(new BigDecimal(0)) <= 0;
+    }
+
+    /**
+     * Inflates or deflates a rate by a certain amount.
+     *
+     * @param inflationRate
+     *            the rate that {@code this} is multiplied by.
+     * @ensures this = #this * inflationRate
+     */
+    BigDecimal multiplyRate(BigDecimal inflationRate) {
+        assert inflationRate != null : "Violation of: inflationRate is not null";
+        return this.rate.multiply(inflationRate);
     }
 
 }

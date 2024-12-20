@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 public class RateTableDemo1 {
 
         /**
-         * Main method.
+         * Demo for the {@code RateTable} component.
          *
          * @param args
          *                the command line arguments
